@@ -1,0 +1,23 @@
+__pycache__/  # 忽略 Python 编译后生成的字节码缓存目录。每个 Python 包在执行后都会生成 __pycache__ 文件夹，里面是 .pyc 文件，这些文件是平台无关的缓存，不需要提交到仓库。
+*.pyc  # 忽略所有以 .pyc 结尾的编译字节码文件。这些文件同样是由 Python 自动生成的，不需要版本控制。
+.ipynb_checkpoints/  # 忽略 Jupyter Notebook 自动生成的检查点目录。当你在 Jupyter 中编辑 .ipynb 文件时，会自动保存一个备份到该文件夹中，这些备份文件不应提交。
+
+.venv/  # 忽略 Python 虚拟环境目录（通常名为 .venv）。虚拟环境包含了项目依赖的库，通常体积较大且与本地环境相关，不应该提交到代码库，而是通过 requirements.txt 等文件来管理依赖。
+.env  # 忽略环境配置文件。.env 文件通常用来存放环境变量或敏感信息（如密码、密钥），不应该公开，因此需要忽略。
+
+# 忽略 logs/ 目录下的所有文件和子目录，但保留 logs/.gitkeep 文件。
+logs/*  # logs/* 匹配 logs 目录下的所有内容。
+!logs/.gitkeep  # !logs/.gitkeep 是取反规则，让 Git 不忽略这个特定文件。
+
+outputs/*
+!outputs/.gitkeep
+
+data/*
+!data/.gitkeep
+
+# 忽略 PyTorch 模型权重文件（.pt、.pth、.ckpt 是常见的模型保存格式）
+*.pt
+*.pth
+*.ckpt
+
+.DS_Store
