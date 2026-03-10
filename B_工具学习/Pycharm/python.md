@@ -18,3 +18,31 @@ pip show torch
 conda list torch
 ```
 
+### 显示下载的包的版本
+
+```bash
+pip show 包名
+```
+
+### 升级包到最新版本
+
+```bash
+pip install --upgrade 包名
+```
+
+### 指定版本号升级
+
+```bash
+pip install --upgrade numpy==2.1.3
+```
+
+### 查看cuda版本
+
+```
+nvcc --version
+```
+
+```
+nvidia-smi
+```
+
