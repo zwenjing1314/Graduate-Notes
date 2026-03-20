@@ -99,6 +99,41 @@ list_from_array = array.tolist()
 print(list_from_array) # 输出: [[1, 2, 3], [4, 5, 6]]
 ```
 
+## transpose()
+
+`np.transpose` 是 NumPy 中用于**交换数组的轴（维度）**的函数。它的基本作用是重新排列数组的维度顺序，相当于矩阵转置在高维空间的推广。
+
+```
+numpy.transpose(a, axes=None)
+```
+
+- **a**：输入数组。
+- **axes**：可选参数，指定新轴的顺序。如果不提供，则默认反转轴的顺序（即对二维数组就是通常的转置）。
+
+基本用法
+
+```
+import numpy as np
+
+arr = np.array([[1, 2, 3],
+                [4, 5, 6]])
+print(arr.shape)      # (2, 3)
+
+transposed = np.transpose(arr)
+print(transposed)
+# 输出：
+# [[1 4]
+#  [2 5]
+#  [3 6]]
+print(transposed.shape)  # (3, 2)
+```
+
+也可以使用数组的 `.T` 属性完成相同操作：
+
+```
+arr.T  # 结果与 np.transpose(arr) 相同
+```
+
 
 
 # 踩过的坑+解决办法
