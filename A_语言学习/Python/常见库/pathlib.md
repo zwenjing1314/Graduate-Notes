@@ -125,6 +125,64 @@ print(p3)           # 输出：/tmp/link
 print(p3.resolve()) # 输出：/home/user/real_file.py (解析到真实文件)
 ```
 
+## write_text()
+
+基本用法
+
+```py
+from pathlib import Path
+
+# 创建 Path 对象
+json_path = Path("outputs/document.json")
+
+# 写入文本内容
+json_path.write_text(parsed.model_dump_json(indent=2), encoding="utf-8")
+```
+
+方法签名
+
+```py
+Path.write_text(
+    data: str,           # 要写入的字符串内容
+    encoding: str = None, # 编码格式（推荐指定）
+    errors: str = None    # 错误处理方式（可选）
+) -> int                 # 返回写入的字符数
+```
+
+等价于传统写法
+
+```py
+# 使用 write_text() （简洁）
+json_path.write_text(content, encoding="utf-8")
+
+# 等价于传统的 open() 写法（繁琐）
+with open(json_path, 'w', encoding='utf-8') as f:
+    f.write(content)
+```
+
+示例
+
+```py
+from pathlib import Path
+
+# 示例 1: 简单写入
+path = Path("hello.txt")
+path.write_text("Hello, World!")  # 返回 13（字符数）
+
+# 示例 2: 指定编码
+path.write_text("你好，世界", encoding="utf-8")
+
+# 示例 3: 带错误处理
+path.write_text(text, encoding="utf-8", errors="ignore")
+
+# 示例 4: 自动创建父目录（需要先调用 mkdir）
+output_path = Path("outputs/subdir/file.txt")
+output_path.parent.mkdir(parents=True, exist_ok=True)  # 创建目录
+output_path.write_text("content")  # 写入文件
+```
+
+
+
 # 常用属性
 
 ## parent
