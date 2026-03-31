@@ -4,6 +4,19 @@ NumPy 是 Python 中一个强大的科学计算库，主要用于数组和矩阵
 
 # 常用API
 
+## array()
+
+创建数组
+
+```py
+import numpy as np
+array = np.array([1, 2, 3, 4])
+print(array)  # [1 2 3 4]
+print(type(array))  # <class 'numpy.ndarray'>
+```
+
+
+
 ## concatenate()
 
 ```py
