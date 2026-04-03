@@ -326,6 +326,14 @@ git reset <文件路径>
 
 
 
+## 中文显示问题
+
+```bash
+git config --global core.quotepath false
+```
+
+
+
 ## 修改代理
 
 打开[Git CMD](https://zhida.zhihu.com/search?content_id=736588962&content_type=Answer&match_order=1&q=Git+CMD&zd_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6aGlkYV9zZXJ2ZXIiLCJleHAiOjE3Njg4Nzk1NjAsInEiOiJHaXQgQ01EIiwiemhpZGFfc291cmNlIjoiZW50aXR5IiwiY29udGVudF9pZCI6NzM2NTg4OTYyLCJjb250ZW50X3R5cGUiOiJBbnN3ZXIiLCJtYXRjaF9vcmRlciI6MSwiemRfdG9rZW4iOm51bGx9.87WigpNgB9PCyTpoT5PkUUGIouQgRs67Pqtp8h-QXBw&zhida_source=entity)，添加全局代理
