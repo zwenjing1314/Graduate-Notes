@@ -244,69 +244,88 @@ git pull origin main
 git push origin main
 ```
 
+### 先拉取最新代码再上传
+
+```bash
+# 第一步：拉取远程最新代码并 rebase（你之前的第一条命令）
+git pull --rebase origin main
+
+# 第二步：把你的修改推送到 GitHub
+git push origin main
+```
+
+
+
 ## 拉取项目
 
-### 本地有**未提交**的修改
+**养成习惯**：在每次开始写新代码前，先执行 `git pull --rebase origin main`，确保基础代码是最新的，能极大减少后续冲突。
 
-如果工作区（working directory）或暂存区（staging area）还有未提交的改动，直接执行 `git pull` 通常会失败，并出现类似以下的错误提示：
+**善用 Stash**：如果你写到一半想拉取代码，但又不想现在就 commit（因为功能还没写完），`git stash` 是你最好的朋友。
 
-text
+### 基础拉取命令
 
 ```
-error: Your local changes to the following files would be overwritten by merge:
-    <文件名>
-Please commit your changes or stash them before you merge.
-Aborting
+# 标准拉取（Merge 模式）
+git pull origin main
+
+# 变基拉取（Rebase 模式）—— 推荐
+git pull --rebase origin main
 ```
 
-
-
-**原因**：Git 为了保护你的本地修改不被远程提交覆盖，默认拒绝在“脏”工作区下进行合并。
-
-**解决方法**：
-
-- **提交修改**：如果这些修改是完整的，可以先 `git add` 和 `git commit` 提交到本地仓库，然后再执行 `git pull`。
-- **暂存修改**：如果暂时不想提交，可以用 `git stash` 将当前修改暂时保存到一个栈中，使工作区恢复干净。然后执行 `git pull` 拉取远程更新，最后用 `git stash pop` 将暂存的修改重新应用到工作区。如果有冲突，则需要解决冲突。
-
-### 本地有**已提交**的修改，但未推送到远程
-
-这种情况下，你的本地分支和远程分支已经“分叉”（diverged）：你有一些本地提交，远程也有新的提交。此时执行 `git pull` 会执行两个步骤：
-
-1. `git fetch`：下载远程的最新提交到本地（但不合并）。
-2. `git merge`：将远程分支合并到当前本地分支（默认是 merge 操作，会产生一个新的合并提交）。
-
-**可能的结果**：
-
-- **自动合并成功**：如果修改的文件不冲突，Git 会自动创建一个合并提交（merge commit），将远程和本地的修改合并在一起。之后你可以继续工作或推送。
+- 地的修改合并在一起。之后你可以继续工作或推送。
 - **产生冲突**：如果双方修改了同一个文件的同一部分，Git 无法自动合并，会提示冲突，需要你手动解决。
 
-**示例流程**：
+### 当“本地”与“远程”都有修改时
+
+这种情况非常普遍，处理方式取决于你的**本地修改是否已经执行过 `git commit`**。
+
+#### 场景 A：本地修改已 commit（产生冲突）
+
+当你运行 `git pull --rebase` 时，如果远程和本地修改了**同一文件的同一行**，Git 会暂停并报错，提示“Conflict”。
+
+**处理步骤：**
+
+1. **找到冲突文件**：终端会显示具体文件名。
+2. **手动解决**：打开文件，你会看到 `<<<<<<<`, `=======`, `>>>>>>>` 这种标记。删除标记并保留你想要的代码。
+3. **标记解决**：
 
 ```bash
-# 假设你在 main 分支上有本地提交 A，远程有新的提交 B
-git pull
-# 如果自动合并成功，会生成合并提交 M
-# 如果有冲突，Git 会提示，需要手动解决冲突后提交
+git add <冲突的文件名>
 ```
 
-### 处理合并冲突
-
-如果 `git pull` 导致冲突，Git 会标记冲突文件，你需要：
-
-- 打开冲突文件，查找 `<<<<<<<`、`=======`、`>>>>>>>` 标记，手动编辑文件保留正确内容。
-- 编辑完成后，用 `git add` 标记为已解决。
-- 最后执行 `git commit` 完成合并（如果是 merge 操作，Git 会自动生成合并提交信息）。
-- 若想放弃合并，可以用 `git merge --abort` 回到合并前的状态。
-
-### 使用 `git pull --rebase` 避免合并提交
-
-如果你希望保持提交历史的线性，可以用变基（rebase）代替合并：
+4. **继续流程**：
 
 ```bash
-git pull --rebase
+git rebase --continue
 ```
 
-这会将你的本地提交“放在”远程提交之后，相当于先应用远程提交，再逐个应用你的本地提交。如果遇到冲突，解决后执行 `git rebase --continue`，最后你的历史就是一条直线。但需注意：**不要对已推送到公共仓库的提交进行变基**，否则会给他人的工作带来麻烦。
+注意：此时不需要再执行 commit，Git 会自动帮你完成。
+
+#### 场景 B：本地修改还没 commit（拉取失败）
+
+如果你本地有还没保存的改动（Modified），Git 通常会拒绝 pull，提示“Your local changes... would be overwritten”。
+
+**处理方式（Stash 暂存法）：**
+
+1. **把改动藏起来**：
+
+```bash
+git stash
+```
+
+2. **正常拉取**：
+
+```bash
+git pull --rebase origin main
+```
+
+3. **把改动拿回来**：
+
+```bash
+git stash pop
+```
+
+
 
 ------
 
