@@ -244,6 +244,50 @@ image_t, boxes_t = transform(image, boxes)
 print(boxes_t)
 ```
 
+# datasets
+
+## ImageFolder()
+
+它通常用于加载图像数据集，尤其是文件夹结构化的数据集。每个子文件夹代表一个类别，图像文件保存在这些子文件夹中。`ImageFolder` 将这些文件夹作为类标签进行处理，并自动将每个图像与其标签配对。
+
+**加载数据**：
+
+使用 `ImageFolder` 加载数据集。你需要提供数据集的根目录路径，以及定义的转换操作。
+
+```py
+dataset = datasets.ImageFolder(root="path_to_your_dataset", transform=transform)
+```
+
+目录结构要求：
+
+`ImageFolder` 要求数据集的目录结构如下：
+
+```bash
+root/
+    class_1/
+        img1.jpg
+        img2.jpg
+        ...
+    class_2/
+        img1.jpg
+        img2.jpg
+        ...
+    ...
+```
+
+示例
+
+```py
+# 使用 ImageFolder 加载测试图像数据集
+# ImageFolder 会自动读取 ./datas/test_images 目录下的所有子文件夹作为不同类别
+dataset = datasets.ImageFolder('./data')
+
+# 构建反向映射字典：将类别索引映射回类别名称（人名）
+# dataset.class_to_idx 是 {'person1': 0, 'person2': 1, ...} 的格式
+# 我们需要反转它为 {0: 'person1', 1: 'person2', ...} 方便后续查找
+dataset.idx_to_class = {i: c for c, i in dataset.class_to_idx.items()}
+```
+
 
 
 # utils

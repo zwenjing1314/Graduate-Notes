@@ -4,6 +4,23 @@
 
 # 常见API
 
+## imte()
+
+`ensor.item()` 是一个非常常用的方法，用来 **从只包含一个元素的张量（tensor）中提取出对应的 Python 标量值**。
+
+示例
+
+```py
+import torch
+
+x = torch.tensor([3.14])
+value = x.item()  # 提取为 Python float
+print(value, type(value))
+# 输出: 3.14 <class 'float'>
+```
+
+
+
 ## arange()
 
 返回一个大小为 ⌈end−startstep⌉ / step 的一维张量，其值取自区间 `[start, end)`，以 start 为起点，公差为 `step`。
@@ -24,6 +41,56 @@ torch.arange(start=0, end, step=1, *, out=None, dtype=None, layout=torch.strided
 torch.arange(5)
 torch.arange(1, 4)
 torch.arange(1, 2.5, 0.5)
+```
+
+
+
+## stack()
+
+ **PyTorch** 中用于 **在新维度上堆叠多个张量** 的函数。它和 `torch.cat()` 不同，`stack` 会 **增加一个新的维度**，而 `cat` 只是沿着已有维度拼接。
+
+**语法**
+
+```py
+torch.stack(tensors, dim=0, *, out=None)
+```
+
+参数说明
+
+- **tensors**：张量序列（list/tuple），**形状必须完全相同**。
+- **dim**：新维度插入的位置（默认 `0`）。
+- **out**：可选，输出张量。
+
+**示例**
+
+```py
+import torch
+
+# 创建两个形状相同的张量
+a = torch.tensor([1, 2, 3])
+b = torch.tensor([4, 5, 6])
+
+# 在新维度 dim=0 堆叠
+stack0 = torch.stack([a, b], dim=0)  # 第0维是作用在维度上，最后一维是作用在数据上L
+print(stack0)
+print(stack0.shape)  # torch.Size([2, 3])
+
+# 在新维度 dim=1 堆叠
+stack1 = torch.stack([a, b], dim=1)
+print(stack1)
+print(stack1.shape)  # torch.Size([3, 2])
+
+"""
+tensor([[1, 2, 3],
+        [4, 5, 6]])
+torch.Size([2, 3])
+
+tensor([[1, 4],
+        [2, 5],
+        [3, 6]])
+torch.Size([3, 2])
+
+"""
 ```
 
 
