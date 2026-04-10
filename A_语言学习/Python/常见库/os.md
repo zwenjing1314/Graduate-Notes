@@ -76,6 +76,31 @@ print(files)
 
 如果目录不存在，会抛出 `FileNotFoundError`；如果没有权限，会抛出 `PermissionError`。
 
+## getenv()
+
+*os.getenv()* 是一个用于获取系统环境变量值的函数。它可以获取指定环境变量的值，并以字符串形式返回。如果环境变量不存在，则返回默认值。
+
+使用方法
+
+```py
+os.getenv(key, default=None)
+```
+
+**key**: 表示环境变量名称的字符串。
+
+**default** (可选): 表示当环境变量不存在时返回的默认值。如果省略，则默认设置为 *None*。
+
+示例代码
+
+```py
+import os
+key = 'HOME'
+value = os.getenv(key)
+print("Value of 'HOME' environment variable:", value)
+
+# Value of 'home' environment variable: None
+```
+
 
 
 # os.path 模块

@@ -292,7 +292,98 @@ dataset.idx_to_class = {i: c for c, i in dataset.class_to_idx.items()}
 
 # utils
 
+## make_grid()
 
+make_grid() 是 PyTorch 可视化工具中的关键函数，用于将多张图像拼接成一个网格布局的大图，方便批量查看和比较图像数据。
+
+函数签名
+
+```py
+torchvision.utils.make_grid(
+    tensor, 
+    nrow=8, 
+    padding=2, 
+    normalize=False, 
+    value_range=None, 
+    scale_each=False, 
+    pad_value=0
+)
+```
+
+1. tensor（必需） - 输入图像张量
+
+​	支持三种输入格式：
+
+​	(B, C, H, W)
+
+​	(C, H, W)
+
+​	(B, H, W)
+
+- B: Batch size（批次大小）
+- C: Channels（通道数，1或3）
+- H: Height（高度）
+- W: Width（宽度）
+
+2. nrow（可选） - 每行显示的图像数量
+
+- 默认值: 8
+- 作用: 控制网格的列数
+- 行数自动计算: nrows = ceil(B / nrow)
+
+3. padding（可选） - 图像间的填充像素
+
+- 默认值: 2
+- 作用: 在每张图像之间添加空白边界，便于区分
+- 单位: 像素
+
+视觉效果对比：
+
+```
+padding=0:  ████████    (图像紧挨着)
+padding=2:  ████  ████  (图像间有2像素间隙)
+```
+
+4. normalize（可选） - 是否归一化
+
+- 默认值: False
+- 设为 True 时:
+  - 将像素值缩放到 [0, 1] 范围
+  - 公式: (x - min) / (max - min)
+  - 适用于: 原始数据不在 [0, 1] 范围的情况
+
+在代码中：
+
+```py
+# DCGAN的数据经过 Normalize((0.5,0.5,0.5), (0.5,0.5,0.5))
+# 像素值范围是 [-1, 1]，需要 normalize=True 转回 [0, 1]
+normalize=True
+```
+
+5. value_range（可选） - 手动指定数值范围
+
+  格式: (min, max)
+  优先级: 高于 normalize 参数
+  示例: value_range=(-1, 1) 明确指定范围
+
+6. scale_each（可选） - 单独归一化每张图
+  默认值: False（使用全局最小/最大值）
+  设为 True: 每张图像独立归一化到自己的 [0, 1]
+  适用场景: 批次中图像亮度差异极大时
+
+7. pad_value（可选） - 填充区域的颜色
+  默认值: 0（黑色）
+  作用: 设置 padding 区域和网格边缘的颜色
+  范围: [0, 1]（归一化后）
+  示例: pad_value=1 白色填充
+
+---
+
+返回值
+返回一个 3D 张量，形状为 (C, H_grid, W_grid)：
+C: 通道数（与输入相同）
+H_grid: 网格总高度 = nrows * (H + padding) + padding
+W_grid: 网格总宽度 = nrow * (W + padding) + padding
 
 # io
 

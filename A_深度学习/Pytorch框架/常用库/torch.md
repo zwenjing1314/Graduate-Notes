@@ -4,7 +4,7 @@
 
 # 常见API
 
-## imte()
+## item()
 
 `ensor.item()` 是一个非常常用的方法，用来 **从只包含一个元素的张量（tensor）中提取出对应的 Python 标量值**。
 
@@ -403,5 +403,39 @@ print(out)
 #(tensor([1, 2, 3]), tensor([3,1,2]))  #这里不清楚
 out = torch.unique(x,dim=0) #按照第一个维度去重
 tensor([[1,2],[1,3]])
+```
+
+## full()
+
+基本语法
+
+```py
+torch.full(size, fill_value, *, dtype=None, layout=torch.strided, 
+           device=None, requires_grad=False)
+```
+
+示例代码
+
+```py
+label = torch.full((b_size,), real_label, dtype=torch.float, device=device)
+```
+
+1. 参数解析
+size = (b_size,): 创建一个一维张量，长度为 b_size（即 128）
+fill_value = real_label: 填充值为 1.0（真实标签）
+dtype = torch.float: 数据类型为浮点数（因为 BCELoss 需要 float）
+device = device: 放在与模型相同的设备上（CPU 或 GPU）
+
+2. 执行结果
+
+```
+# 假设 b_size = 128, real_label = 1
+label = torch.full((128,), 1.0, dtype=torch.float, device=device)
+
+# 生成的张量：
+# tensor([1., 1., 1., 1., 1., 1., 1., 1., ..., 1., 1., 1.], device='cuda:0')
+# 形状: (128,)
+# 类型: torch.float32
+
 ```
 
