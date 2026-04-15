@@ -327,6 +327,85 @@ git stash pop
 
 
 
+## 分支管理
+
+• 可以。Git 里的“分支”可以理解成：从当前代码状态拉出来的一条独立开发线。
+
+  你现在在 main 分支，通常 main 表示项目的主线代码，比如稳定版本、最终版本。新建
+  分支后，你可以在新分支上修改代码、做实验、写新功能，而不会直接影响 main。
+
+  查看当前分支：
+
+  git branch
+
+  带 * 的就是你当前所在分支，例如：
+
+  * main
+
+  从当前 main 新建一个分支并切换过去：
+
+  git switch -c 新分支名
+
+  例如：
+
+  git switch -c feature/login
+
+  老一点的写法也可以：
+
+  git checkout -b feature/login
+
+  这两个命令的意思都是：基于当前分支创建一个新分支，并切换到新分支上。
+
+  新分支的作用主要有这些：
+
+  1. 隔离修改
+
+  你可以在新分支上随便改代码，不会马上影响 main。
+
+  2. 开发新功能
+
+  例如：
+
+  git switch -c feature/search
+
+  然后专门在这个分支里开发搜索功能。
+
+  3. 修复 bug
+
+  例如：
+
+  git switch -c fix/login-error
+
+  专门修登录错误。
+
+  4. 方便合并
+
+  当新分支上的功能完成后，可以再把它合并回 main：
+
+  git switch main
+  git merge feature/login
+
+  5. 方便回退和试验
+
+  如果你在新分支上试错失败，可以直接切回 main，主分支不会被污染。
+
+  一个常见流程是：
+
+  git switch main
+  git pull
+  git switch -c feature/my-work
+  ### 修改代码
+  git add .
+  git commit -m "完成某个功能"
+  git switch main
+  git merge feature/my-work
+
+  如果你只是想现在新建一个分支，最常用命令就是：
+
+  git switch -c my-new-branch
+
+  分支名可以自己取，比如 test、dev、feature-note、fix-bug 等。
+
 ------
 
 ## 撤销暂存文件

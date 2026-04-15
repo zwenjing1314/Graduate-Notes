@@ -44,6 +44,55 @@ uvicorn main:app --reload
 
 > **💡 补充说明**：虽然控制台不显示输出，但代码里定义的接口（如 `@app.get("/")`）已生效。你可以直接在浏览器里访问 `http://127.0.0.1:8000` 来验证。
 
+
+
+# ORM 学习
+
+## ORM 简介
+
+ORM（Object-RelationalMapping，对象关系映射）是一种编程技术，用于在面向对象编程语言和关系型数据库之间
+建立映射。它允许开发者通过操作对象的方式与数据库进行交互，而无需直接编写复杂的SQL语句。
+
+Version:0.9 StartHTML:0000000105 EndHTML:0000001318 StartFragment:0000000141 EndFragment:0000001278
+
+优势：
+
+ 减少重复的 SQL 代码
+
+ 代码更简洁易读
+
+ 自动处理数据库连接和事务
+
+ 自动防止 SQL 注入攻击
+
+## ORM使用流程
+
+排名 	ORM 工具			 特点 				适应场景
+
+1 	SQLAlchemy ORM 	功能最强、最灵活、企业级 	各类 API、微服务、数据应用
+
+2 	Django ORM 			封装好、上手快 			Django 项目、管理后台
+
+3	 Tortoise ORM 				全异步 				异步 Web 服务、高并发 API
+
+sqlalchemy (ORM 工具)
+
+aiomysql（异步数据库驱动）
+
+Ubuntu 安装
+
+```bash
+pip install sqlalchemy aiomysql
+```
+
+Mac 安装
+
+```
+pip install "sqlalchemy[asyncio]" aiomysql
+```
+
+
+
 # Uvicorn 高性能服务器
 
 **Uvicorn** 是一个基于 **uvloop** 和 **httptools** 构建的超高速 **ASGI**（Asynchronous Server Gateway Interface）服务器，专为 Python 异步 Web 应用设计。它支持 **HTTP/1.1**、**WebSocket**，并计划支持 **HTTP/2**，可与 **FastAPI**、**Starlette**、**Django Channels** 等框架无缝配合。
