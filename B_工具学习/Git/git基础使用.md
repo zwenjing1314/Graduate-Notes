@@ -329,6 +329,42 @@ git stash pop
 
 ## 分支管理
 
+1. **创建新分支**
+
+```bash
+git switch -c ocr-pipeline-enhancements
+```
+
+2. **更换分支**
+
+```bash
+# 检查分支状态
+git branch
+
+git switch main
+```
+
+3. **上传新分支**
+
+```bash
+  git add .
+  git add ocr_inspector/README.md ocr_inspector/app.py ocr_inspector/ocr_engine.py ocr_inspector/web/index.html
+  
+  
+  git commit -m "feat(ocr_inspector): add OCR enhancement pipeline and tuning options"
+  git push -u origin ocr-pipeline-enhancements
+```
+
+-u是设置upstream
+
+`-u` 的出现并不是因为分支不同，而是**因为“首次推送”与“已存在追踪关系”的区别**
+
+`-u` 的出现仅表示“**我是第一次推送这个分支，顺便帮我记住上游，下次少打几个字**”
+
+
+
+
+
 • 可以。Git 里的“分支”可以理解成：从当前代码状态拉出来的一条独立开发线。
 
   你现在在 main 分支，通常 main 表示项目的主线代码，比如稳定版本、最终版本。新建
@@ -394,6 +430,7 @@ git stash pop
   git switch main
   git pull
   git switch -c feature/my-work
+
   ### 修改代码
   git add .
   git commit -m "完成某个功能"
@@ -405,6 +442,98 @@ git stash pop
   git switch -c my-new-branch
 
   分支名可以自己取，比如 test、dev、feature-note、fix-bug 等。
+
+
+
+• feature/your-branch-name 里的 feature/ 不是必须的。
+  它只是团队里常见的一种命名习惯，用来把分支按类型分类，比如：
+
+  - feature/... 或 feat/...：新功能
+  - fix/...：修复
+  - chore/...：杂项
+  - docs/...：文档
+
+  Git 和 GitHub 都不要求你一定加这个前缀。你一个人用仓库，直接写成 ocr-pipeline-enhancements 也完全可以。
+
+  结合你这次改动内容，我更建议：
+
+  - 分支名：ocr-pipeline-enhancements
+  - commit message：feat(ocr_inspector): add OCR enhancement pipeline and tuning options
+
+  对应命令直接用这套：
+
+  git switch -c feature/your-branch-name
+  git add ocr_inspector/README.md ocr_inspector/app.py ocr_inspector/ocr_engine.py ocr_inspector/web/index.html
+  git commit -m "Describe this change"
+  git push -u origin feature/your-branch-name
+
+  git switch -c ocr-pipeline-enhancements
+  git add ocr_inspector/README.md ocr_inspector/app.py ocr_inspector/ocr_engine.py ocr_inspector/web/index.html
+  git commit -m "feat(ocr_inspector): add OCR enhancement pipeline and tuning options"
+  git push -u origin ocr-pipeline-enhancements
+
+  如果你想要不用英文前缀、更直白一点，也可以这样：
+
+  - 分支名：improve-ocr-inspector
+  - commit message：improve OCR accuracy with preprocessing, fallback scan, and artifact filtering
+
+  如果你愿意，我还可以继续帮你把这次改动整理成更像正式 PR 标题和说明的一版。
+
+
+
+
+
+• 以后切换分支，最常用就是这两个命令：
+
+  git switch main
+  git switch ocr-pipeline-enhancements
+
+  如果想先看看有哪些本地分支：
+
+  git branch
+
+  如果想看远程分支也一起看：
+
+  git branch -a
+
+  切换完分支后，工作区里的代码通常会直接变成那个分支对应的版本，不需要你手动再“换一套代码”。
+  也就是说：
+
+  - git switch main：代码会切回 main 的状态
+  - git switch ocr-pipeline-enhancements：代码会变成你这个新分支的状态
+
+  但有两个前提你要知道：
+
+  1. 这个分支已经在你本地存在
+     你自己刚创建过的分支，之后直接 git switch 分支名 就行。
+  2. 你当前没有冲突的未提交改动
+     如果你改了文件但还没提交，Git 可能不让你切换，或者把这些改动一起带过去。
+
+  如果某个分支只是 GitHub 上有、本地还没有，那就要先拿下来：
+
+  git fetch origin
+  git switch --track origin/ocr-pipeline-enhancements
+
+  以后这个分支建好本地后，再切换就只需要：
+
+  git switch ocr-pipeline-enhancements
+
+  如果你切到某个分支后，还想同步 GitHub 上这个分支的最新内容，再执行：
+
+  git pull
+
+  你可以把它理解成：
+
+  - git switch：切换到哪个分支
+  - git fetch：查看并下载远程最新分支信息
+  - git pull：把远程这个分支的最新提交拉到本地
+
+  按你现在的情况，最常用的就是：
+
+  git switch main
+  git switch ocr-pipeline-enhancements
+
+  如果你愿意，我可以接着给你画一个“本地分支 / GitHub 分支 / switch / pull”之间的最小理解图。
 
 ------
 
