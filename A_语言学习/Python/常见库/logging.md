@@ -4,7 +4,7 @@
 
 # 常见API
 
-### `getLogger` 的详细用法
+## `getLogger`()
 
 `logging.getLogger(name)` 遵循 **单例模式**。这意味着：
 
@@ -15,7 +15,7 @@
 
 通常在开发中，我们会看到这种写法：
 
-```
+```py
 logger = logging.getLogger(__name__)
 ```
 

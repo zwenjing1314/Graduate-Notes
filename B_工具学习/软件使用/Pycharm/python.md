@@ -1,3 +1,23 @@
+## conda 环境
+
+```bash
+conda create -n forgeflow python=3.11
+conda activate forgeflow
+pip install -e '.[dev]'
+uvicorn app.main:app --reload
+```
+
+
+
+## ven 环境
+
+```py
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -e '.[dev]'
+uvicorn app.main:app --reload
+```
+
 查看pytorch版本
 
 在终端中查看 PyTorch 版本，可以使用以下任一命令：
