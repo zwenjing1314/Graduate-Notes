@@ -32,7 +32,7 @@ netD = nn.DataParallel(netD, list(range(ngpu)))
 ### DataParallel 的工作原理（详细数据流）
 
 1. 核心思想：数据并行（Data Parallelism）
-  DataParallel 采用单进程多线程的方式，在多个 GPU 上并行处理同一个模型的不同数据批次。
+    DataParallel 采用单进程多线程的方式，在多个 GPU 上并行处理同一个模型的不同数据批次。
 
 
 
@@ -642,7 +642,20 @@ nn.LeakyReLU(0.2, inplace=True),
 参数说明
 
 ```py
-nn.ConvTranspose2d(in_channels, out_channels, kernel_size, stride=1, padding=0, output_padding=0, groups=1, bias=True, dilation=1)
+torch.nn.ConvTranspose2d(
+    in_channels,        # 输入通道数
+    out_channels,       # 输出通道数
+    kernel_size,        # 卷积核大小（int 或 tuple）
+    stride=1,           # 步长，默认 1
+    padding=0,          # 输入填充，默认 0
+    output_padding=0,   # 输出额外填充，默认 0
+    groups=1,           # 分组卷积，默认 1
+    bias=True,          # 是否使用偏置，默认 True
+    dilation=1,         # 空洞卷积率，默认 1
+    padding_mode='zeros', # 填充模式，默认 'zeros'
+    device=None,
+    dtype=None
+)
 ```
 
 示例代码

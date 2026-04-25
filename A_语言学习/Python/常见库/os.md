@@ -101,6 +101,27 @@ print("Value of 'HOME' environment variable:", value)
 # Value of 'home' environment variable: None
 ```
 
+## walk()
+
+`os.walk` 是一个生成器（Generator），它会递归地遍历指定目录下的所有层级。
+
+```py
+import os
+
+for dirpath, dirnames, filenames in os.walk(top, topdown=True):
+    # 处理逻辑
+```
+
+参数				说明
+
+**`top`**			起始路径**。你想从哪个文件夹开始往下找。**
+
+`topdown	`	遍历顺序**。默认为 `True`（先遍历父目录，再找子目录）；若为 `False`，则先从最深层的子目录开始往回找。**
+
+`followlinks`		是否跟随符号链接（快捷方式）。默认为 `False`。
+
+
+
 
 
 # os.path 模块

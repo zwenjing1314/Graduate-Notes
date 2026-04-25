@@ -361,7 +361,30 @@ git switch main
 
 `-u` 的出现仅表示“**我是第一次推送这个分支，顺便帮我记住上游，下次少打几个字**”
 
+git switch -c 是现在更推荐的新命令。
 
+git checkout -b，是因为它是 Git 里长期存在的经典写法，很多教程和团队还在用。但如果我们按更现代、语义更清晰的方式来写，应该优先用：
+
+```bash
+git switch -c feature/retrieve-webpage-content
+
+# 创建并切换到一个新分支
+```
+
+而老写法是：
+
+```bash
+git checkout -b feature/retrieve-webpage-content
+
+# 两者效果基本一样，都是：
+# 从当前分支创建 feature/retrieve-webpage-content，并立刻切过去
+```
+
+区别在于：
+
+- git checkout 是老命令，功能很多，既能切分支，也能恢复文件，语义比较混杂。
+- git switch 是较新的命令，专门用于切换分支，读起来更清楚。
+- git restore 则用于恢复文件，和 switch 一起替代了 checkout 的一部分职责。
 
 
 

@@ -519,6 +519,16 @@ fclose(fp);
 
 写入一个空的 IEND 块，告诉阅读器图片结束了。
 
+## crop()
+
+```py
+Image.crop(box=None)
+```
+
+**参数 `box`**：这是一个包含 4 个数字的**元组 (Tuple)**，格式为 `(left, upper, right, lower)`。
+
+**返回值**：返回一个新的 `Image` 对象，原图不会被修改。
+
 
 
 # ImageDraw 库
