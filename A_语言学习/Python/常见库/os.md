@@ -94,11 +94,22 @@ os.getenv(key, default=None)
 
 ```py
 import os
+# 获取'HOME'环境变量的值
 key = 'HOME'
 value = os.getenv(key)
 print("Value of 'HOME' environment variable:", value)
-
-# Value of 'home' environment variable: None
+# 如果'JAVA_HOME'环境变量存在，则获取其值
+key = 'JAVA_HOME'
+value = os.getenv(key)
+print("Value of 'JAVA_HOME' environment variable:", value)
+# 如果'home'环境变量不存在，返回None
+key = 'home'
+value = os.getenv(key)
+print("Value of 'home' environment variable:", value)
+# 如果'home'环境变量不存在，返回一个明确的默认值
+key = 'home'
+value = os.getenv(key, "value does not exist")
+print("Value of 'home' environment variable:", value)
 ```
 
 ## walk()

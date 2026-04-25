@@ -519,6 +519,7 @@ fclose(fp);
 
 写入一个空的 IEND 块，告诉阅读器图片结束了。
 
+<<<<<<< HEAD
 ## crop()
 
 ```py
@@ -528,6 +529,54 @@ Image.crop(box=None)
 **参数 `box`**：这是一个包含 4 个数字的**元组 (Tuple)**，格式为 `(left, upper, right, lower)`。
 
 **返回值**：返回一个新的 `Image` 对象，原图不会被修改。
+=======
+## histogram()
+
+一、核心作用
+
+histogram() 返回一个包含 256 个整数的列表，表示图像中每个灰度级（0-255）的像素数量。
+
+二、返回值详解
+
+1. 基本结构
+
+```py
+from PIL import Image
+
+# 打开一张灰度图或转为灰度
+image = Image.open("test.png").convert("L")  # "L" 模式 = 灰度图
+
+# 获取直方图
+histogram = image.histogram()
+
+print(f"类型: {type(histogram)}")  # <class 'list'>
+print(f"长度: {len(histogram)}")   # 256
+print(f"内容: {histogram[:10]}")   # 前10个值
+```
+
+2. 数据含义
+
+```py
+# histogram 是一个长度为 256 的列表
+# 索引 i 表示灰度值 i
+# 值 histogram[i] 表示灰度值为 i 的像素数量
+
+# 示例：
+histogram = [
+    100,   # histogram[0]   → 有 100 个像素的灰度值是 0（纯黑）
+    50,    # histogram[1]   → 有 50 个像素的灰度值是 1
+    30,    # histogram[2]   → 有 30 个像素的灰度值是 2
+    ...,
+    200,   # histogram[127] → 有 200 个像素的灰度值是 127（中灰）
+    ...,
+    150,   # histogram[255] → 有 150 个像素的灰度值是 255（纯白）
+]
+
+# 所有值的总和 = 图像的总像素数
+total_pixels = sum(histogram)
+print(f"总像素数: {total_pixels}")  # 例如: 1000000 (1000x1000 图片)
+```
+>>>>>>> e1ba353 (Ubuntu 4.25)
 
 
 
@@ -550,3 +599,89 @@ Image.crop(box=None)
 	canvas 是一张画布。
 	ImageDraw.Draw(canvas) 是你手里的画笔套装。
 	draw.rectangle() 是你用画笔在画布上涂颜料的动作。
+
+# ImageOps库
+
+## exif_transpose()
+
+一、核心作用
+
+根据图片的 EXIF 元数据中的方向标记（Orientation Tag），自动将图片旋转到正确的显示方向。
+
+二、为什么需要这个函数？
+
+问题背景：手机拍照的方向问题
+
+```py
+场景：你用手机竖着拍了一张照片
+       ↓
+手机传感器实际是横向的（landscape）
+       ↓
+照片保存时：
+  - 像素数据：横向存储（宽 > 高）
+  - EXIF 标记：Orientation = 6（旋转90度）
+       ↓
+在不支持 EXIF 的软件中打开：
+  ❌ 图片显示为横向（需要手动旋转）
+  
+在支持 EXIF 的软件中打开：
+  ✅ 图片自动旋转为竖向（正确方向）
+```
+
+三、EXIF Orientation 详解
+
+8 种可能的方向值
+
+```py
+# EXIF Orientation 标签的值及其含义
+
+Orientation = 1  # 正常（不需要旋转）
+┌─────┐
+│ ABC │  ← 文字正向
+└─────┘
+
+Orientation = 2  # 水平翻转
+┌─────┐
+│ CBA │  ← 左右镜像
+└─────┘
+
+Orientation = 3  # 旋转 180 度
+┌─────┐
+│ ∀ᗺƆ │  ← 倒置
+└─────┘
+
+Orientation = 4  # 垂直翻转
+┌─────┐
+│ ∀ᗺƆ │  ← 上下镜像
+└─────┘
+
+Orientation = 5  # 逆时针 90 度 + 水平翻转
+┌─┐
+│A│
+│B│
+│C│
+└─┘
+
+Orientation = 6  # 顺时针 90 度（最常见！）
+┌─┐
+│C│
+│B│
+│A│
+└─┘
+↑ 手机竖拍时的典型值
+
+Orientation = 7  # 逆时针 90 度 + 垂直翻转
+┌─┐
+│C│
+│B│
+│A│
+└─┘
+
+Orientation = 8  # 逆时针 90 度
+┌─┐
+│A│
+│B│
+│C│
+└─┘
+```
+

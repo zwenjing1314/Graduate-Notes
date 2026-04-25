@@ -258,3 +258,15 @@ thread.join(timeout=3)                  ↓
 主线程继续执行
 ```
 
+## Lock
+
+Lock 是 Python threading 模块提供的互斥锁（Mutex），用于在多线程环境中保护共享资源，防止多个线程同时访问和修改同一数据而导致的数据不一致问题。
+
+### 应用中的使用场景
+
+1. 锁的初始化
+
+```py
+_request_state_lock = Lock()
+```
+

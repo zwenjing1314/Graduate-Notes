@@ -22,6 +22,16 @@ print(json_str_chinese) # 输出: {"name": "张三", "age": 30, "city": "北京"
 
 默认情况下，*json.dumps* 会将非ASCII字符转换成ASCII编码的转义序列。为了在JSON输出中保留中文字符，可以使用 *ensure_ascii=False* 参数。
 
+```py
+json.dumps(manifest, sort_keys=True, ensure_ascii=False, indent=2)
+```
+
+ensure_ascii = False, 允许非 ASCII 字符（如中文）直接输出，而不是转义为 \uXXXX
+
+sort_keys=True：按键名排序
+
+indent = 2, 格式化输出，缩进 2 空格，便于人工阅读
+
 ## dump(), dumps(), load(), loads()
 
 ```py
