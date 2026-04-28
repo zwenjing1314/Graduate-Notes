@@ -254,7 +254,30 @@ git pull --rebase origin main
 git push origin main
 ```
 
+### **合并本地和远程历史**
 
+```bash
+git pull origin main --no-rebase --allow-unrelated-histories
+```
+
+- --no-rebase：告诉 Git 用 merge 方式拉取
+- --allow-unrelated-histories：允许合并“两套完全不相关的历史”
+
+### **用本地直接覆盖远程**
+
+如果确定远程仓库里的内容都不要了，只保留本地现在这份代码，可以直接强推：
+
+```bash
+git push -u origin main --force
+```
+
+更安全一点可以用：
+
+```bash
+git push -u origin main --force-with-lease
+```
+
+这会覆盖远程 main，所以只有在确认远程内容不需要时才这么做。
 
 ## 拉取项目
 
@@ -323,6 +346,21 @@ git pull --rebase origin main
 
 ```bash
 git stash pop
+```
+
+## 克隆仓库
+
+**一般正确方式**
+如果这个项目本来就是你的远程仓库，最推荐：
+
+```
+git clone 仓库地址
+```
+
+比如：
+
+```
+git clone https://github.com/zwenjing1314/DocU_Demo.git
 ```
 
 
