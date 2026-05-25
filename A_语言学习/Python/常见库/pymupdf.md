@@ -4,6 +4,20 @@ PyMuPDF是一个高性能的Python库，用于PDF（及其他）文档的数据�
 
 https://pymupdf.cn/en/latest/the-basics.html
 
+Fitz 和 PyMuPDF 是同一个库，只是名字不同：
+包名（安装时用）：pymupdf
+模块名（导入时用）：fitz
+
+```py
+# 安装时用这个名字
+pip install pymupdf
+
+# 导入时用这个名字
+import fitz
+```
+
+
+
 # 常见API
 
 ## open()
