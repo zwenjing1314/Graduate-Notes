@@ -7,6 +7,25 @@ pip install -e '.[dev]'
 uvicorn app.main:app --reload
 ```
 
+ **查看环境列表**
+
+```shell
+conda env list （最常用，带路径显示）
+conda info --envs （效果完全一样）
+```
+
+**切换/激活环境**
+
+```shell
+conda activate 环境名称
+```
+
+**退出当前环境**
+
+```
+conda deactivate
+```
+
 
 
 ## ven 环境

@@ -34,6 +34,28 @@ print(item.is_file)  # <bound method Path.is_file of WindowsPath('../data/images
 print(type(item.is_file))  # <class 'method'>
 ```
 
+## is_absolute() 
+
+作用：判断一个路径是绝对路径还是相对路径。
+
+- 绝对路径 (Absolute Path)：从根目录开始的完整路径。
+  - macOS/Linux: /Users/zhouwenjing/project/src/file.py (以 / 开头)
+  - Windows: C:\Users\project\src\file.py (以盘符开头)
+- 相对路径 (Relative Path)：相对于当前工作目录的路径。
+  - 例如：configs/experiments/demo.yaml 或 ../data/raw
+
+示例
+
+```py
+def resolve_project_path(value: str | Path) -> Path:
+    path = Path(value)
+    if path.is_absolute():
+        return path  # 如果已经是绝对路径，直接返回，不做任何修改
+    return project_root() / path  # 如果是相对路径，把它拼接到项目根目录下
+```
+
+
+
 ## glob("*.jpeg")
 
 列出当前目录下**所有匹配某种模式的文件/文件夹**（也只看第一层，不会进子目录）
@@ -74,6 +96,17 @@ print(Path("archive.tar.gz").suffix)    # 输出: .gz  (只取最后一个)
 print(Path("my_folder/script.py").suffix) # 输出: .py
 print(Path("README").suffix)            # 输出: ""   (没有后缀)
 ```
+
+## cwd()
+
+cwd 是 Current Working Directory 的缩写。
+
+- 含义：它返回你执行命令时所在的那个文件夹的路径。
+- 特点：它是动态变化的。
+
+举例说明：
+
+
 
 ## mkdir()
 
