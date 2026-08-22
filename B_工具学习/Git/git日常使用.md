@@ -74,3 +74,47 @@ git branch -D <分支名>
 git switch paper/evidence-set-retrieval
 ```
 
+### 分支的完整创建与推送
+
+查看分支
+
+```bash
+git switch paper/evidence-set-retrieval
+```
+
+如果不在，切换过去
+
+```bash
+git switch thesis/structdocir
+```
+
+在推送前，请确保你的所有修改都已经提交到本地仓库
+
+```bash
+git add .
+git commit -m "你的提交信息，例如：添加 StructDocIR 相关代码"
+```
+
+执行推送命令
+
+```bash
+git push -u origin thesis/structdocir
+```
+
+### 恢复历史删除的文件
+
+- **`git restore`**：专门用于“恢复文件”的命令。它不会切换分支，只负责把某个文件改回之前的样子。
+- **`--source=HEAD~1`**：这是**指定“从哪里拿文件”**。
+  - `HEAD` 代表当前最新的那次提交。
+  - `~1`（波浪号加数字1）代表**往前数第 1 个父提交**，也就是 **“上一次提交”**（即当前版本的前一个版本）。
+  - 合起来就是：**从“上一次提交”的那个时间点**拿取文件内容。
+- **`--`**：这是 Git 的安全分隔符，用来明确告诉 Git：“后面跟着的是文件路径，而不是分支名”。这里很有必要，因为 `README.md` 刚好不是分支名，但养成好习惯。
+- **`README.md`**：指定要操作的目标文件。
+
+```bash
+git restore --source=HEAD~1 -- README.md
+git add README.md
+git commit -m "恢复 README.md"
+git push origin main
+```
+
