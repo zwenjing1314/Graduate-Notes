@@ -1,3 +1,44 @@
+## 上传克隆下来的仓库
+
+核心思路就是：**把本地仓库绑定的“远程地址”从“别人的仓库”换成“你自己的仓库”**。
+
+**第 1 步：在自己的 Git 托管平台（如 GitHub、Gitee）上创建一个新的空仓库**
+
+> **注意**：创建时**不要**勾选“添加 README 文件”或“添加 .gitignore”，保持仓库完全空白。否则后续推送可能会因为冲突而报错。
+
+**第 2 步：在终端进入项目目录，查看当前远程地址**
+
+```bash
+git remote -v
+```
+
+会看到类似这样指向别人仓库的地址（origin 是默认的远程仓库名）。
+
+**第 3 步：更改远程仓库地址**
+把 `origin` 的地址换成你自己新建的仓库地址（HTTPS 或 SSH 格式均可）
+
+```bash
+git remote set-url origin <你的新仓库地址>
+```
+
+例如：`git remote set-url origin https://github.com/你的用户名/你的仓库名.git`
+
+**第 4 步：再次查看确认地址已更新**
+
+```bash
+git remote -v
+```
+
+确保显示的地址已经是你自己的仓库了。
+
+**第 5 步：推送到你自己的远程仓库**
+
+```bash
+git push -u origin main
+```
+
+如果远程仓库默认分支是 `master`，就把 `main` 换成 `master`。不确定的话，先用 `git branch` 查看当前本地分支名。
+
 ## 一些小命令
 
 ```
@@ -118,3 +159,4 @@ git commit -m "恢复 README.md"
 git push origin main
 ```
 
+$score(Q, D) = \sum_{i=1}^{L_q} \max_{j=1}^{1024} (q_i \cdot d_j)$
