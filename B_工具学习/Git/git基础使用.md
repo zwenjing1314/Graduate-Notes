@@ -101,6 +101,8 @@ git add .
 # 或者逐个添加
 git add README.md requirements.txt .gitignore experiments/ tools/ 
 # 注意：根据.gitignore，data/和weights/等不会被添加
+
+git add README.md .gitignore experiments/
 ```
 
 **配置邮箱用户**
@@ -118,6 +120,8 @@ git config user.name "你的名字"仅当前仓库配置（不加 --global）：
 
 ```bash
 git commit -m "Initial commit: RS-Prompt-WarmStart project"
+
+git commit -m "Initial commit: 基于布局条件适配的视觉文档证据区域排序方法研究"
 ```
 
 **连接到远程仓库**：
